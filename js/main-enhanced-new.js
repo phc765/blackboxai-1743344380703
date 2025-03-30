@@ -169,84 +169,122 @@ function loadLessonsContent() {
 }
 
 function loadPracticeContent() {
-    console.log('Loading practice content...');
     const section = document.getElementById('practice-section');
-    if (!section) {
-        console.error('Practice section not found!');
-        return;
-    }
+    if (!section) return;
 
-    // Add timer display
+    // Initialize practice state
+    let score = 0;
+    let currentProblemIndex = 0;
+    const problems = [
+        generateMathProblem(problemTypes.ADDITION, difficultyLevels.MEDIUM),
+        generateMathProblem(problemTypes.SUBTRACTION, difficultyLevels.MEDIUM),
+        generateMathProblem(problemTypes.MULTIPLICATION, difficultyLevels.MEDIUM),
+        generateMathProblem(problemTypes.DIVISION, difficultyLevels.MEDIUM),
+        generateMathProblem(problemTypes.WORD_PROBLEM, difficultyLevels.MEDIUM)
+    ];
+
+    // Render practice UI
     section.innerHTML = `
-        <div class="timer-display bg-purple-100 text-purple-800 text-center p-2 rounded-lg mb-4 text-xl font-bold">
-            05:00
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-purple-600">Luyện tập Toán</h2>
+                <div class="flex items-center space-x-4">
+                    <div class="score-display bg-blue-100 text-blue-800 px-3 py-1 rounded-lg font-bold">
+                        Điểm: <span id="score-value">0</span>
+                    </div>
+                    <div class="progress-display">
+                        <span id="current-problem">1</span>/<span>${problems.length}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="problem-container" class="p-4 border rounded-lg mb-6">
+                <!-- Problem will be rendered here -->
+            </div>
+
+            <div class="flex justify-between">
+                <button id="back-btn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>
+                    <i class="fas fa-arrow-left mr-2"></i>Bài trước
+                </button>
+                <button id="next-btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded">
+                    Bài tiếp theo <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
         </div>
     `;
-    
-    // Start 5 minute timer
-    const timerDisplay = section.querySelector('.timer-display');
-    startTimer(5 * 60, timerDisplay);
 
-    try {
-        // Generate 3 practice problems
-        const problems = [
-            generateMathProblem(problemTypes.ADDITION, difficultyLevels.MEDIUM),
-            generateMathProblem(problemTypes.SUBTRACTION, difficultyLevels.MEDIUM),
-            generateMathProblem(problemTypes.MULTIPLICATION, difficultyLevels.MEDIUM)
-        ];
-        console.log('Generated practice problems:', problems);
-
-
-                    section.innerHTML = `
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h2 class="text-2xl font-bold text-purple-600 mb-4">Luyện tập Toán</h2>
-                
-                ${problems.map((problem, index) => `
-                    <div class="practice-problem mb-6 p-4 border-b">
-                        <h3 class="text-lg font-semibold mb-2">Bài ${index + 1}:</h3>
-                        <p class="math-problem text-xl mb-3">${problem.question}</p>
-                        
-                        <div class="grid grid-cols-2 gap-3">
-                            ${problem.options.map((option, i) => `
-                                <button class="answer-btn bg-gray-100 hover:bg-gray-200 p-2 rounded" 
-                                        data-answer="${option}">
-                                    ${option}
-                                </button>
-                            `).join('')}
-                        </div>
-                    </div>
+    // Render current problem
+    function renderProblem(index) {
+        const problem = problems[index];
+        const container = document.getElementById('problem-container');
+        
+        container.innerHTML = `
+            <div class="mb-4">
+                <div class="difficulty-badge bg-${getDifficultyColor(problem.difficulty)}-100 text-${getDifficultyColor(problem.difficulty)}-800 text-sm px-2 py-1 rounded-full inline-block">
+                    ${problem.difficulty.toUpperCase()}
+                </div>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Bài ${index + 1}:</h3>
+            <p class="math-problem text-xl mb-4">${problem.question}</p>
+            <div class="grid grid-cols-2 gap-3">
+                ${problem.options.map((option, i) => `
+                    <button class="answer-btn bg-white hover:bg-blue-50 border border-gray-200 p-3 rounded-lg transition" 
+                            data-answer="${option}">
+                        ${option}
+                    </button>
                 `).join('')}
             </div>
         `;
-        console.log('Practice content loaded successfully');
 
-        // Add click handlers for answer buttons
+        // Update navigation buttons
+        document.getElementById('back-btn').disabled = index === 0;
+        document.getElementById('next-btn').disabled = index === problems.length - 1;
+        document.getElementById('current-problem').textContent = index + 1;
 
+        // Add answer handlers
         document.querySelectorAll('.answer-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const selectedAnswer = e.target.dataset.answer;
-                const problem = problems.find(p => 
-                    p.options.includes(parseInt(selectedAnswer) || selectedAnswer)
-                );
+                const selectedAnswer = e.currentTarget.dataset.answer;
+                const isCorrect = checkAnswer(selectedAnswer, problem.answer);
                 
-                if (problem) {
-                    const isCorrect = checkAnswer(selectedAnswer, problem.answer);
-                    showFeedback(isCorrect);
+                if (isCorrect) {
+                    score += 10;
+                    document.getElementById('score-value').textContent = score;
+                    e.currentTarget.classList.add('bg-green-100', 'border-green-500');
                 } else {
-                    console.error('Could not find matching problem for answer');
+                    e.currentTarget.classList.add('bg-red-100', 'border-red-500');
                 }
+                
+                showFeedback(isCorrect);
             });
         });
-    } catch (error) {
-        console.error('Error loading practice content:', error);
-        section.innerHTML = `
-            <div class="bg-white rounded-xl shadow-md p-6 text-center">
-                <h2 class="text-2xl font-bold text-red-600 mb-4">Lỗi khi tải bài tập</h2>
-                <p>Vui lòng thử lại sau</p>
-            </div>
-        `;
     }
 
+    // Navigation handlers
+    document.getElementById('back-btn').addEventListener('click', () => {
+        if (currentProblemIndex > 0) {
+            currentProblemIndex--;
+            renderProblem(currentProblemIndex);
+        }
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+        if (currentProblemIndex < problems.length - 1) {
+            currentProblemIndex++;
+            renderProblem(currentProblemIndex);
+        }
+    });
+
+    // Start with first problem
+    renderProblem(0);
+}
+
+function getDifficultyColor(difficulty) {
+    return {
+        easy: 'green',
+        medium: 'yellow',
+        hard: 'red'
+    }[difficulty];
 }
 
 // WebSocket client connection

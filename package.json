@@ -1,0 +1,15 @@
+{
+  "name": "math-learning-app",
+  "version": "1.0.0",
+  "description": "Interactive math learning application for children",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.18.1"
+  }
+}

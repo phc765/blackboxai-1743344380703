@@ -66,35 +66,25 @@ function handleNavClick(section) {
     }
 }
 
-
-    // Load initial content
-    loadHomeContent();
-});
-
 // Content loading functions
 function loadHomeContent() {
-    // Home page specific initialization
     console.log('Home content loaded');
 }
 
 function loadLessonsContent() {
-    // Lessons page initialization
     console.log('Lessons content loaded');
 }
 
 function loadPracticeContent() {
-    // Practice page initialization
     console.log('Practice content loaded');
 }
 
 function loadCompetitionContent() {
-    // Competition page initialization
     initCompetition();
     console.log('Competition content loaded');
 }
 
 function loadRankingContent() {
-    // Ranking page initialization
     console.log('Ranking content loaded');
 }
 
@@ -109,5 +99,4 @@ function showFeedback(isCorrect) {
     setTimeout(() => feedbackElement.remove(), 2000);
 }
 
-// Export functions for other modules
 export { showFeedback };

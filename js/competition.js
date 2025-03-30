@@ -255,8 +255,16 @@ class CompetitionMode {
 
 // Initialize competition mode when competition section is loaded
 function initCompetition() {
+    console.log('Initializing competition mode...');
     const competition = new CompetitionMode();
+    console.log('Competition instance created');
+    
+    // Verify DOM elements exist
+    const problemContainer = document.getElementById('problem-container');
+    console.log('Problem container exists:', !!problemContainer);
+    
     competition.startCompetition();
+    console.log('Competition started');
 }
 
 export { initCompetition };

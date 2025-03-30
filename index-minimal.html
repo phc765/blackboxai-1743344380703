@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Minimal Test with Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM fully loaded with Tailwind');
+        
+        // Menu toggle functionality
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const closeBtn = document.querySelector('.mobile-menu button');
+        const menu = document.querySelector('.mobile-menu');
+
+        if (menuBtn && menu) {
+            menuBtn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+
+        if (closeBtn && menu) {
+            closeBtn.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        }
+    });
+    </script>
+</head>
+<body class="bg-gray-100 p-8">
+    <!-- Mobile menu button -->
+    <button class="md:hidden mobile-menu-btn fixed top-4 right-4 p-2 rounded-lg bg-blue-600 text-white">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu hidden md:hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+        <button class="absolute top-4 right-4 p-2 text-gray-500">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col space-y-6 text-center">
+            <a href="#" class="text-2xl font-medium text-blue-600 hover:text-blue-800">Home</a>
+            <a href="#" class="text-2xl font-medium text-blue-600 hover:text-blue-800">About</a>
+            <a href="#" class="text-2xl font-medium text-blue-600 hover:text-blue-800">Contact</a>
+        </nav>
+    </div>
+
+    <h1 class="text-3xl font-bold text-blue-600">Minimal Test Page</h1>
+    <p class="mt-4 text-gray-700">Now with Tailwind CSS styling and mobile menu structure</p>
+</body>
+</html>

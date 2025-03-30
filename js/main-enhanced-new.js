@@ -84,31 +84,88 @@ function loadLessonsContent() {
         <div class="bg-white rounded-xl shadow-md p-6">
             <h2 class="text-2xl font-bold text-purple-600 mb-4">Bài học Toán lớp 3</h2>
             
-            <div class="lesson-category mb-6">
-                <h3 class="text-xl font-semibold mb-2">1. Phép cộng</h3>
-                <div class="lesson-content bg-blue-50 p-4 rounded-lg">
-                    <p class="mb-2">Cộng các số có 2 chữ số:</p>
-                    <p class="font-mono text-lg">23 + 45 = (20 + 40) + (3 + 5) = 60 + 8 = 68</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Phép cộng -->
+                <div class="lesson-category p-4 border rounded-lg hover:shadow-md transition">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-plus-circle text-blue-500 mr-2"></i>Phép cộng
+                    </h3>
+                    <div class="lesson-content bg-blue-50 p-4 rounded-lg">
+                        <p class="mb-2 font-medium">Cộng có nhớ trong phạm vi 100:</p>
+                        <div class="font-mono text-lg mb-3 p-2 bg-white rounded">
+                            36 + 47 = (30 + 40) + (6 + 7) = 70 + 13 = 83
+                        </div>
+                        <button class="practice-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                            Luyện tập ngay
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="lesson-category mb-6">
-                <h3 class="text-xl font-semibold mb-2">2. Phép trừ</h3>
-                <div class="lesson-content bg-blue-50 p-4 rounded-lg">
-                    <p class="mb-2">Trừ các số có 2 chữ số:</p>
-                    <p class="font-mono text-lg">57 - 24 = (50 - 20) + (7 - 4) = 30 + 3 = 33</p>
+                <!-- Phép trừ -->
+                <div class="lesson-category p-4 border rounded-lg hover:shadow-md transition">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-minus-circle text-red-500 mr-2"></i>Phép trừ
+                    </h3>
+                    <div class="lesson-content bg-red-50 p-4 rounded-lg">
+                        <p class="mb-2 font-medium">Trừ có nhớ trong phạm vi 100:</p>
+                        <div class="font-mono text-lg mb-3 p-2 bg-white rounded">
+                            52 - 27 = (50 - 20) + (2 - 7) = 30 - 5 = 25
+                        </div>
+                        <button class="practice-btn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+                            Luyện tập ngay
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="lesson-category mb-6">
-                <h3 class="text-xl font-semibold mb-2">3. Bảng cửu chương</h3>
-                <div class="lesson-content bg-blue-50 p-4 rounded-lg">
-                    <p class="mb-2">Bảng nhân 2:</p>
-                    <p class="font-mono text-lg">2 × 1 = 2<br>2 × 2 = 4<br>...<br>2 × 10 = 20</p>
+                <!-- Bảng cửu chương -->
+                <div class="lesson-category p-4 border rounded-lg hover:shadow-md transition">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-times-circle text-green-500 mr-2"></i>Bảng cửu chương
+                    </h3>
+                    <div class="lesson-content bg-green-50 p-4 rounded-lg">
+                        <p class="mb-2 font-medium">Bảng nhân từ 2 đến 5:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                            ${[2,3,4,5].map(n => `
+                                <div class="p-1 bg-white rounded">
+                                    ${n} × 1 = ${n}<br>
+                                    ${n} × 2 = ${n*2}<br>
+                                    ...<br>
+                                    ${n} × 9 = ${n*9}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="practice-btn bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
+                            Luyện tập ngay
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Phép chia -->
+                <div class="lesson-category p-4 border rounded-lg hover:shadow-md transition">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-divide text-purple-500 mr-2"></i>Phép chia
+                    </h3>
+                    <div class="lesson-content bg-purple-50 p-4 rounded-lg">
+                        <p class="mb-2 font-medium">Chia hết và chia có dư:</p>
+                        <div class="font-mono text-lg mb-3 p-2 bg-white rounded">
+                            17 ÷ 3 = 5 dư 2<br>
+                            24 ÷ 4 = 6
+                        </div>
+                        <button class="practice-btn bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm">
+                            Luyện tập ngay
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     `;
+
+    // Add click handlers for practice buttons
+    document.querySelectorAll('.practice-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            handleNavClick('practice');
+        });
+    });
 }
 
 function loadPracticeContent() {

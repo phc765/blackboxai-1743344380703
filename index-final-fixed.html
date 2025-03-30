@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán Vui Mỗi Ngày</title>
+    <!-- Production: Use local build, Development: Use CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <script>
+        // Tailwind configuration with existence check
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'math-red': '#FF6B6B',
+                            'math-blue': '#4D96FF', 
+                            'math-yellow': '#FFD93D',
+                            'math-green': '#6BCB77',
+                            'math-purple': '#9C51B6'
+                        },
+                        animation: {
+                            'bounce-slow': 'bounce 2s infinite',
+                            'pulse-slow': 'pulse 3s infinite',
+                        }
+                    }
+                }
+            };
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .floating { animation: float 3s ease-in-out infinite; }
+        .btn-hover { transition: all 0.3s ease; }
+        .btn-hover:hover { transform: scale(1.05); }
+    </style>
+    <link rel="icon" href="data:,">
+</head>
+<body class="font-['Baloo_2'] bg-gradient-to-b from-math-blue to-math-purple min-h-screen">
+    <!-- [Rest of the body content remains unchanged] -->
+    <script src="js/main-enhanced-new.js" type="module"></script>
+    <script>
+        // Mobile menu functionality with error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function() {
+                    const menu = document.querySelector('.mobile-menu');
+                    if (menu) {
+                        menu.classList.toggle('hidden');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

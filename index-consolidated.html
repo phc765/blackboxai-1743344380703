@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán Vui Mỗi Ngày</title>
+    <!-- Production build of Tailwind CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'math-red': '#FF6B6B',
+                        'math-blue': '#4D96FF', 
+                        'math-yellow': '#FFD93D',
+                        'math-green': '#6BCB77',
+                        'math-purple': '#9C51B6'
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .floating { animation: float 3s ease-in-out infinite; }
+        .btn-hover { transition: all 0.3s ease; }
+        .btn-hover:hover { transform: scale(1.05); }
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-['Baloo_2'] bg-gradient-to-b from-math-blue to-math-purple min-h-screen">
+    <header class="bg-gradient-to-r from-math-red to-math-yellow text-white shadow-lg">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-calculator text-4xl floating"></i>
+                    <h1 class="text-3xl font-bold font-['Fredoka_One']">TOÁN SIÊU VUI</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="nav-link active group" data-section="home">
+                        <i class="fas fa-home mr-1 group-hover:scale-125 transition"></i> 
+                        <span class="group-hover:text-math-yellow">Trang chủ</span>
+                    </a>
+                    <a href="#" class="nav-link group" data-section="lessons">
+                        <i class="fas fa-book-open mr-1 group-hover:scale-125 transition"></i> 
+                        <span class="group-hover:text-math-yellow">Bài học</span>
+                    </a>
+                    <a href="#" class="nav-link group" data-section="practice">
+                        <i class="fas fa-pencil-alt mr-1 group-hover:scale-125 transition"></i> 
+                        <span class="group-hover:text-math-yellow">Bài tập</span>
+                    </a>
+                    <a href="#" class="nav-link group" data-section="competition">
+                        <i class="fas fa-trophy mr-1 group-hover:scale-125 transition"></i> 
+                        <span class="group-hover:text-math-yellow">Thi đấu</span>
+                    </a>
+                    <a href="#" class="nav-link group" data-section="ranking">
+                        <i class="fas fa-medal mr-1 group-hover:scale-125 transition"></i> 
+                        <span class="group-hover:text-math-yellow">Xếp hạng</span>
+                    </a>
+                    <a href="#" class="nav-link group" data-section="support">
+                        <i class="fas fa-question-circle mr-1 group-hover:scale-125 transition"></i> 
+                        <span class="group-hover:text-math-yellow">Hỗ trợ</span>
+                    </a>
+                </div>
+                <button class="mobile-menu-btn md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div class="mobile-menu hidden md:hidden absolute top-16 right-4 bg-white shadow-lg rounded-md p-2 z-10">
+                <a href="#" class="nav-link block px-4 py-2 text-gray-800" data-section="home">
+                    <i class="fas fa-home mr-2"></i>Trang chủ
+                </a>
+                <a href="#" class="nav-link block px-4 py-2 text-gray-800" data-section="lessons">
+                    <i class="fas fa-book-open mr-2"></i>Bài học
+                </a>
+                <a href="#" class="nav-link block px-4 py-2 text-gray-800" data-section="practice">
+                    <i class="fas fa-pencil-alt mr-2"></i>Bài tập
+                </a>
+                <a href="#" class="nav-link block px-4 py-2 text-gray-800" data-section="competition">
+                    <i class="fas fa-trophy mr-2"></i>Thi đấu
+                </a>
+                <a href="#" class="nav-link block px-4 py-2 text-gray-800" data-section="ranking">
+                    <i class="fas fa-medal mr-2"></i>Xếp hạng
+                </a>
+                <a href="#" class="nav-link block px-4 py-2 text-gray-800" data-section="support">
+                    <i class="fas fa-question-circle mr-2"></i>Hỗ trợ
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section id="home-section" class="section active">
+            <div class="bg-white/90 rounded-2xl shadow-xl p-8 text-center backdrop-blur-sm">
+                <h2 class="text-4xl font-bold text-math-red mb-6 font-['Fredoka_One'] animate-bounce-slow">
+                    CHÀO MỪNG ĐẾN TOÁN SIÊU VUI!
+                </h2>
+                <p class="text-xl mb-8">Học toán thật vui với những bài học và trò chơi siêu thú vị!</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-math-blue/20 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-math-blue/30">
+                        <i class="fas fa-book-open text-5xl text-math-blue mb-4 floating"></i>
+                        <h3 class="text-2xl font-semibold text-math-blue">Bài học</h3>
+                        <p class="mt-2">Học các phép toán cơ bản</p>
+                        <button class="btn-hover mt-4 bg-math-blue text-white px-6 py-2 rounded-full hover:bg-math-blue/80">
+                            Bắt đầu <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-math-green/20 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-math-green/30">
+                        <i class="fas fa-pencil-alt text-5xl text-math-green mb-4 animate-pulse-slow"></i>
+                        <h3 class="text-2xl font-semibold text-math-green">Luyện tập</h3>
+                        <p class="mt-2">Làm bài tập và kiểm tra</p>
+                        <button class="btn-hover mt-4 bg-math-green text-white px-6 py-2 rounded-full hover:bg-math-green/80">
+                            Bắt đầu <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-math-yellow/20 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-math-yellow/30">
+                        <i class="fas fa-trophy text-5xl text-math-yellow mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-math-yellow">Thi đấu</h3>
+                        <p class="mt-2">Thách đấu với bạn bè</p>
+                        <button class="btn-hover mt-4 bg-math-yellow text-white px-6 py-2 rounded-full hover:bg-math-yellow/80">
+                            Bắt đầu <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lessons-section" class="section hidden">
+            <!-- Lesson content will be loaded here -->
+        </section>
+
+        <section id="practice-section" class="section hidden">
+            <!-- Practice content will be loaded here -->
+        </section>
+
+        <section id="competition-section" class="section hidden">
+            <!-- Competition content will be loaded here -->
+        </section>
+
+        <section id="ranking-section" class="section hidden">
+            <!-- Ranking content will be loaded here -->
+        </section>
+
+        <section id="support-section" class="section hidden">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-2xl font-bold text-math-purple mb-4">Hỗ trợ</h2>
+                <div class="space-y-4">
+                    <div class="bg-math-blue/10 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-2"><i class="fas fa-question-circle text-math-blue mr-2"></i>Câu hỏi thường gặp</h3>
+                        <p>Xem các câu hỏi thường gặp về cách sử dụng ứng dụng</p>
+                    </div>
+                    <div class="bg-math-green/10 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-2"><i class="fas fa-envelope text-math-green mr-2"></i>Liên hệ hỗ trợ</h3>
+                        <p>Email: hotro@toanvuimoingay.vn</p>
+                    </div>
+                    <div class="bg-math-yellow/10 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-2"><i class="fas fa-info-circle text-math-yellow mr-2"></i>Hướng dẫn sử dụng</h3>
+                        <p>Xem video hướng dẫn cách sử dụng các tính năng</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main-enhanced-new.js" type="module"></script>
+    <link rel="icon" href="data:,"> <!-- Empty favicon -->
+    <script>
+        // Mobile menu toggle with error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function() {
+                    const menu = document.querySelector('.mobile-menu');
+                    if (menu) {
+                        menu.classList.toggle('hidden');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

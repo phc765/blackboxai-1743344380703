@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán Vui Mỗi Ngày - Standalone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles beyond Tailwind */
+        .nav-link {
+            @apply px-3 py-2 rounded-md text-sm font-medium transition-colors;
+        }
+        .nav-link:hover {
+            @apply bg-blue-400;
+        }
+        .nav-link.active {
+            @apply bg-white text-purple-600;
+        }
+        .section {
+            @apply transition-opacity duration-300;
+        }
+        .section.active {
+            @apply block opacity-100;
+        }
+        .section.hidden {
+            @apply hidden opacity-0;
+        }
+        /* Animation for correct answers */
+        @keyframes correctAnswer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .correct {
+            animation: correctAnswer 0.5s ease;
+            @apply bg-green-100 border-2 border-green-500;
+        }
+        /* Animation for wrong answers */
+        @keyframes wrongAnswer {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        .wrong {
+            animation: wrongAnswer 0.5s ease;
+            @apply bg-red-100 border-2 border-red-500;
+        }
+        /* Math problem styling */
+        .math-problem {
+            @apply text-2xl font-bold text-center my-6;
+        }
+        .answer-option {
+            @apply bg-white rounded-lg p-4 shadow-md cursor-pointer 
+                   hover:bg-blue-50 transition-colors text-center;
+        }
+        .timer-display {
+            @apply text-3xl font-bold text-red-500 text-center my-4;
+        }
+        /* Mobile menu */
+        .mobile-menu {
+            @apply md:hidden absolute top-16 right-4 bg-white 
+                   shadow-lg rounded-md p-2 z-10 hidden;
+        }
+        .mobile-menu.active {
+            @apply block;
+        }
+        /* Progress bar */
+        .progress-bar {
+            @apply w-full bg-gray-200 rounded-full h-4;
+        }
+        .progress-fill {
+            @apply bg-green-500 h-4 rounded-full transition-all duration-300;
+        }
+    </style>
+</head>
+<body class="font-['Baloo_2'] bg-gradient-to-b from-blue-100 to-purple-100 min-h-screen">
+    <!-- Header and navigation same as original -->
+    <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-calculator text-3xl"></i>
+                    <h1 class="text-2xl font-bold">Toán Vui Mỗi Ngày</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="nav-link active" data-section="home">
+                        <i class="fas fa-home mr-1"></i> Trang chủ
+                    </a>
+                    <a href="#" class="nav-link" data-section="lessons">
+                        <i class="fas fa-book-open mr-1"></i> Bài học
+                    </a>
+                    <a href="#" class="nav-link" data-section="practice">
+                        <i class="fas fa-pencil-alt mr-1"></i> Bài tập
+                    </a>
+                    <a href="#" class="nav-link" data-section="competition">
+                        <i class="fas fa-trophy mr-1"></i> Thi đấu
+                    </a>
+                    <a href="#" class="nav-link" data-section="ranking">
+                        <i class="fas fa-medal mr-1"></i> Xếp hạng
+                    </a>
+                </div>
+                <button class="md:hidden text-2xl mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div class="mobile-menu">
+                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" data-section="home">Trang chủ</a>
+                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" data-section="lessons">Bài học</a>
+                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" data-section="practice">Bài tập</a>
+                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" data-section="competition">Thi đấu</a>
+                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" data-section="ranking">Xếp hạng</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Sections same as original -->
+        <section id="home-section" class="section active">
+            <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                <h2 class="text-3xl font-bold text-purple-600 mb-4">Chào mừng đến với Toán Vui Mỗi Ngày!</h2>
+                <p class="text-lg mb-6">Học toán thật vui với những bài học và trò chơi thú vị!</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-100 rounded-lg p-4 hover:shadow-lg transition">
+                        <i class="fas fa-book-open text-4xl text-blue-600 mb-3"></i>
+                        <h3 class="text-xl font-semibold">Bài học</h3>
+                        <p>Học các phép toán cơ bản</p>
+                    </div>
+                    <div class="bg-green-100 rounded-lg p-4 hover:shadow-lg transition">
+                        <i class="fas fa-pencil-alt text-4xl text-green-600 mb-3"></i>
+                        <h3 class="text-xl font-semibold">Luyện tập</h3>
+                        <p>Làm bài tập và kiểm tra</p>
+                    </div>
+                    <div class="bg-yellow-100 rounded-lg p-4 hover:shadow-lg transition">
+                        <i class="fas fa-trophy text-4xl text-yellow-600 mb-3"></i>
+                        <h3 class="text-xl font-semibold">Thi đấu</h3>
+                        <p>Thách đấu với bạn bè</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lessons-section" class="section hidden">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4">Bài học</h2>
+                <p>Nội dung bài học sẽ được cập nhật sớm!</p>
+            </div>
+        </section>
+
+        <section id="practice-section" class="section hidden">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4">Bài tập</h2>
+                <p>Nội dung bài tập sẽ được cập nhật sớm!</p>
+            </div>
+        </section>
+
+        <section id="competition-section" class="section hidden">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4">Thi đấu</h2>
+                <div class="math-problem">5 + 7 = ?</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="answer-option">10</div>
+                    <div class="answer-option">12</div>
+                    <div class="answer-option">13</div>
+                    <div class="answer-option">11</div>
+                </div>
+                <div class="timer-display">30</div>
+            </div>
+        </section>
+
+        <section id="ranking-section" class="section hidden">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4">Xếp hạng</h2>
+                <p>Bảng xếp hạng sẽ được cập nhật sớm!</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Embedded JavaScript from main-enhanced.js
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const answerOptions = document.querySelectorAll('.answer-option');
+
+            // Set up navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    handleNavClick(link.dataset.section);
+                });
+            });
+
+            // Mobile menu toggle
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Basic answer selection for competition
+            if (answerOptions.length > 0) {
+                answerOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        const isCorrect = option.textContent === '12';
+                        showFeedback(isCorrect);
+                        answerOptions.forEach(opt => {
+                            opt.classList.remove('correct', 'wrong');
+                            if (isCorrect && opt === option) {
+                                opt.classList.add('correct');
+                            } else if (!isCorrect && opt === option) {
+                                opt.classList.add('wrong');
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
+        function handleNavClick(section) {
+            const sectionId = `${section}-section`;
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`.nav-link[data-section="${section}"]`).classList.add('active');
+            
+            // Show selected section
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('active');
+            });
+            
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.remove('hidden');
+            activeSection.classList.add('active');
+
+            // Close mobile menu if open
+            const mobileMenu = document.querySelector('.mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        function showFeedback(isCorrect) {
+            const feedbackClass = isCorrect ? 'correct' : 'wrong';
+            const feedbackElement = document.createElement('div');
+            feedbackElement.className = `feedback ${feedbackClass} p-4 rounded-lg text-center my-4`;
+            feedbackElement.textContent = isCorrect ? 'Chính xác! 👏' : 'Sai rồi, thử lại nhé!';
+            
+            document.querySelector('.section.active').appendChild(feedbackElement);
+            setTimeout(() => feedbackElement.remove(), 2000);
+        }
+    </script>
+</body>
+</html>

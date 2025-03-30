@@ -1,0 +1,97 @@
+/* Custom styles beyond Tailwind */
+.nav-link {
+    @apply px-3 py-2 rounded-md text-sm font-medium transition-colors;
+}
+
+.nav-link:hover {
+    @apply bg-blue-400;
+}
+
+.nav-link.active {
+    @apply bg-white text-purple-600;
+}
+
+.section {
+    @apply transition-opacity duration-300;
+}
+
+.section.active {
+    @apply block opacity-100;
+}
+
+.section.hidden {
+    @apply hidden opacity-0;
+}
+
+/* Animation for correct answers */
+@keyframes correctAnswer {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.correct {
+    animation: correctAnswer 0.5s ease;
+    @apply bg-green-100 border-2 border-green-500;
+}
+
+/* Animation for wrong answers */
+@keyframes wrongAnswer {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.wrong {
+    animation: wrongAnswer 0.5s ease;
+    @apply bg-red-100 border-2 border-red-500;
+}
+
+/* Math problem styling */
+.math-problem {
+    @apply text-2xl font-bold text-center my-6;
+}
+
+.answer-option {
+    @apply bg-white rounded-lg p-4 shadow-md cursor-pointer 
+           hover:bg-blue-50 transition-colors text-center;
+}
+
+.timer-display {
+    @apply text-3xl font-bold text-red-500 text-center my-4;
+}
+
+/* Mobile menu */
+.mobile-menu {
+    @apply md:hidden absolute top-16 right-4 bg-white 
+           shadow-lg rounded-md p-2 z-10 hidden;
+}
+
+.mobile-menu.active {
+    @apply block;
+}
+
+/* Progress bar */
+.progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-4;
+}
+
+.progress-fill {
+    @apply bg-green-500 h-4 rounded-full transition-all duration-300;
+}
+
+/* Drag and drop area */
+.drop-area {
+    @apply border-2 border-dashed border-gray-300 rounded-lg p-4 
+           min-h-20 flex items-center justify-center;
+}
+
+.drop-area.active {
+    @apply border-blue-500 bg-blue-50;
+}
+
+.number-block {
+    @apply bg-blue-500 text-white rounded-full w-12 h-12 
+           flex items-center justify-center cursor-move 
+           shadow-md hover:shadow-lg transition;
+}

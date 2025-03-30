@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Math App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-case { margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; }
+        .pass { background-color: #d4edda; }
+        .fail { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>Math Application Tests</h1>
+    <button onclick="runTests()">Run All Tests</button>
+    <div id="test-results"></div>
+
+    <script type="module">
+        import { generateMathProblem, problemTypes, difficultyLevels, checkAnswer } from './js/game-logic.js';
+
+        function runTests() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+            
+            testProblemGeneration();
+            testAnswerChecking();
+            testAllProblemTypes();
+        }
+
+        function testProblemGeneration() {
+            const results = document.getElementById('test-results');
+            const testCase = document.createElement('div');
+            testCase.className = 'test-case';
+            testCase.innerHTML = '<h3>Problem Generation Tests</h3>';
+            
+            try {
+                // Test addition problem
+                const addProblem = generateMathProblem(problemTypes.ADDITION, difficultyLevels.EASY);
+                testCase.innerHTML += `<p>Addition: ${addProblem.question} = ${addProblem.answer}</p>`;
+                
+                // Test subtraction problem
+                const subProblem = generateMathProblem(problemTypes.SUBTRACTION, difficultyLevels.MEDIUM);
+                testCase.innerHTML += `<p>Subtraction: ${subProblem.question} = ${subProblem.answer}</p>`;
+                
+                testCase.classList.add('pass');
+                testCase.innerHTML += '<p>✅ All problem generation tests passed</p>';
+            } catch (error) {
+                testCase.classList.add('fail');
+                testCase.innerHTML += `<p>❌ Problem generation failed: ${error}</p>`;
+            }
+            
+            results.appendChild(testCase);
+        }
+
+        function testAnswerChecking() {
+            const results = document.getElementById('test-results');
+            const testCase = document.createElement('div');
+            testCase.className = 'test-case';
+            testCase.innerHTML = '<h3>Answer Checking Tests</h3>';
+            
+            try {
+                const problem = generateMathProblem(problemTypes.MULTIPLICATION, difficultyLevels.EASY);
+                
+                // Test correct answer
+                const correctTest = checkAnswer(problem.answer.toString(), problem.answer);
+                testCase.innerHTML += `<p>Correct answer test: ${correctTest ? 'PASS' : 'FAIL'}</p>`;
+                
+                // Test incorrect answer
+                const incorrectTest = checkAnswer('999', problem.answer);
+                testCase.innerHTML += `<p>Incorrect answer test: ${!incorrectTest ? 'PASS' : 'FAIL'}</p>`;
+                
+                if (correctTest && !incorrectTest) {
+                    testCase.classList.add('pass');
+                    testCase.innerHTML += '<p>✅ All answer checking tests passed</p>';
+                } else {
+                    throw new Error('Answer checking logic failed');
+                }
+            } catch (error) {
+                testCase.classList.add('fail');
+                testCase.innerHTML += `<p>❌ Answer checking failed: ${error}</p>`;
+            }
+            
+            results.appendChild(testCase);
+        }
+
+        function testAllProblemTypes() {
+            const results = document.getElementById('test-results');
+            const testCase = document.createElement('div');
+            testCase.className = 'test-case';
+            testCase.innerHTML = '<h3>All Problem Type Tests</h3>';
+            
+            try {
+                let allPassed = true;
+                const types = Object.values(problemTypes);
+                
+                for (const type of types) {
+                    const problem = generateMathProblem(type, difficultyLevels.HARD);
+                    testCase.innerHTML += `<p>${type}: ${problem.question} = ${problem.answer}</p>`;
+                    
+                    if (!problem.options.includes(problem.answer)) {
+                        allPassed = false;
+                        testCase.innerHTML += `<p>❌ ${type} options missing correct answer</p>`;
+                    }
+                }
+                
+                if (allPassed) {
+                    testCase.classList.add('pass');
+                    testCase.innerHTML += '<p>✅ All problem type tests passed</p>';
+                } else {
+                    throw new Error('Some problem types failed');
+                }
+            } catch (error) {
+                testCase.classList.add('fail');
+                testCase.innerHTML += `<p>❌ Problem type tests failed: ${error}</p>`;
+            }
+            
+            results.appendChild(testCase);
+        }
+    </script>
+</body>
+</html>
